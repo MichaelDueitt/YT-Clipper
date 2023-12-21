@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Uploader</title>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 50px;
+    background-color: #021d00;
+    color: #2fec00;
+}
+
+#drop-zone {
+    border: 2px dashed #2fec00;
+    padding: 20px;
+    cursor: pointer;
+    background-color: #000000;
+    border-radius: 8px;
+    transition: border 0.3s ease;
+    color: #2fec00;
+}
+
+#drop-zone:hover {
+    border-color: #014601;
+}
+
+#video-container {
+    margin-top: 20px;
+    background-color: #000000;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+video {
+    width: 100%;
+    max-width: 600px;
+    border-radius: 8px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#paste-input {
+    padding: 8px;
+    margin-top: 8px;
+    width: 60%;
+    border: 1px solid #33ff00;
+    border-radius: 4px;
+}
+
+#paste-button {
+    padding: 8px;
+    margin-top: 8px;
+    background-color: #000000;
+    color: #2fec00;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#paste-button:hover {
+    background-color: #014601;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Video Uploader</h1>
+
+    <div id="drop-zone">
+        <p>Drag and drop a video file here or click to select one.</p>
+        <input type="file" id="file-input" accept="video/*">
+    </div>
+
+    <div id="video-container">
+        <video controls autoplay id="uploaded-video"></video>
+    </div>
+
+    <div>
+        <p>Or paste a video link:</p>
+        <input type="text" id="paste-input" placeholder="Paste video link here">
+        <button id="paste-button">Load from Link</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
