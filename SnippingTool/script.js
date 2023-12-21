@@ -81,49 +81,63 @@ document.addEventListener('DOMContentLoaded', function () {
 
             videoContainer.style.display = 'block';
 
-            // Extract video details using the YouTube Data API
-            getVideoDetailsFromAPI(videoId);
-        } else {
-            // For other cases, you may need to implement additional handling
-            alert('Unsupported video URL. Please enter a valid YouTube video URL.');
+
         }
     }
 
-    function getVideoDetailsFromAPI(videoId) {
-        // Include your API key
-        const apiKey = 'YOUR_API_KEY';
+// script.js
 
-        // Example API request to get video details
-        const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${apiKey}`;
-
-        // Make the API request
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response data
-                console.log(data);
-
-                // Extract relevant information and find popular moments
-                if (data.items && data.items.length > 0) {
-                    var videoDetails = data.items[0];
-                    var viewCount = videoDetails.statistics.viewCount;
-                    var likeCount = videoDetails.statistics.likeCount;
-                    var commentCount = videoDetails.statistics.commentCount;
-
-                    // You can use these metrics to identify popular moments
-                    console.log('View Count:', viewCount);
-                    console.log('Like Count:', likeCount);
-                    console.log('Comment Count:', commentCount);
-                    
-                    // You can implement your logic to identify popular moments based on the metrics.
-                    // For example, consider segments with high like counts or high view counts.
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching data:', error);
-            });
+async function fetchVideoData() {
+    const apiKey = '068d0ffb05msh67bc2d25ae27f55p117387jsnf4aef62f3f23';
+  
+    // Get user input from the input box
+    const videoUrlInput = document.getElementById('paste-input');
+    const youtubeVideoUrl = videoUrlInput.value;
+  
+    // Extract video ID from the URL
+    const videoId = extractVideoId(youtubeVideoUrl);
+  
+    if (!videoId) {
+      console.error('Invalid YouTube video URL');
+      return;
     }
+  
+    const apiUrl = `https://youtube138.p.rapidapi.com/video/details/?id=${videoId}&hl=en&gl=US`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': apiKey,
+        'X-RapidAPI-Host': 'youtube138.p.rapidapi.com',
+      },
+    };
+  
+    try {
+      const response = await fetch(apiUrl, options);
+  
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        // You can parse and handle the response here
+      } else {
+        console.error(`Error: ${response.status} - ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  function extractVideoId(videoUrl) {
+    const url = new URL(videoUrl);
+    const videoId = url.searchParams.get('v');
+    return videoId;
+  }
+  
+  document.getElementById('paste-button').addEventListener('click', fetchVideoData);
+  
+      
 
+      
+      
     function isValidUrl(url) {
         // A simple URL validation function
         var pattern = /^(https?:\/\/)?([\w.]+)\.([a-z]{2,6}\.?)(\/[\w\.-]*)*\/?$/;
@@ -143,6 +157,3 @@ document.addEventListener('DOMContentLoaded', function () {
         return null;
     }
 });
-
-
-// https://www.youtube.com/watch?v=jObOjhUkf50
