@@ -153,3 +153,46 @@ async function fetchVideoData() {
         return null;
     }
 });
+
+const video = document.getElementById('clip-video');
+const startSlider = document.getElementById('start-slider');
+const startThumb = document.getElementById('start-thumb');
+const endSlider = document.getElementById('end-slider');
+const endThumb = document.getElementById('end-thumb');
+
+startThumb.addEventListener('mousedown', startDrag);
+endThumb.addEventListener('mousedown', endDrag);
+
+function startDrag(e) {
+    document.addEventListener('mousemove', updateStart);
+    document.addEventListener('mouseup', stopDrag);
+}
+
+function endDrag(e) {
+    document.addEventListener('mousemove', updateEnd);
+    document.addEventListener('mouseup', stopDrag);
+}
+
+function updateStart(e) {
+    const position = calculatePosition(e.clientX, startSlider);
+    startThumb.style.left = position + 'px';
+    video.currentTime = (position / startSlider.clientWidth) * video.duration;
+}
+
+function updateEnd(e) {
+    const position = calculatePosition(e.clientX, endSlider);
+    endThumb.style.left = position + 'px';
+    video.currentTime = (position / endSlider.clientWidth) * video.duration;
+}
+
+function stopDrag() {
+    document.removeEventListener('mousemove', updateStart);
+    document.removeEventListener('mousemove', updateEnd);
+    document.removeEventListener('mouseup', stopDrag);
+}
+
+function calculatePosition(clientX, slider) {
+    const rect = slider.getBoundingClientRect();
+    const offsetX = clientX - rect.left;
+    return Math.min(Math.max(0, offsetX), slider.clientWidth);
+}
