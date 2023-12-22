@@ -134,10 +134,6 @@ async function fetchVideoData() {
   
   document.getElementById('paste-button').addEventListener('click', fetchVideoData);
   
-      
-
-      
-      
     function isValidUrl(url) {
         // A simple URL validation function
         var pattern = /^(https?:\/\/)?([\w.]+)\.([a-z]{2,6}\.?)(\/[\w\.-]*)*\/?$/;
