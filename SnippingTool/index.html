@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Uploader</title>
@@ -119,6 +120,8 @@
     
     <h1>Video Uploader</h1>
 
+    <img src="plot.png" alt="Matplotlib Plot">
+    
     <div id="drop-zone">
         <p>Drag and drop a video file here or click to select one.</p>
         <input type="file" id="file-input" accept="video/*">
@@ -143,6 +146,10 @@
         </div>
     </div>
 
+    <div id="matplotlib-plot-container">
+        <canvas id="matplotlib-plot"></canvas>
+    </div>
+
     <div class="slider-container">
         <div class="slider" id="start-slider">
             <div class="slider-thumb" id="start-thumb"></div>
@@ -154,5 +161,9 @@
     </div>
 
     <script src="script.js"></script>
+
+    <script src="script.py"></script>
+
+    <script src="index.js"></script>
 </body>
 </html>
